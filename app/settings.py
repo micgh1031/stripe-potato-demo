@@ -16,7 +16,6 @@ SECRET_KEY = 'SUPER SECRET HASH VALUE'
 STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", '')
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", '')
 
-ALLOWED_HOSTS = ['stripe-django-demo.herokuapp.com']
 SSL_URLS = ['/signup', '/login', '/admin', '/subscribe-vanilla', '/subscribe-modal']
 
 # Crispy forms
@@ -66,8 +65,6 @@ DATABASES = {
         'HOST': 'localhost'
     }
 }
-
-ALLOWED_HOSTS = []
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -154,7 +151,6 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'django.contrib.sitemaps',
     'django.contrib.staticfiles',
 
     'django.contrib.admin',
@@ -169,25 +165,12 @@ INSTALLED_APPS = (
     'payments',
     'django_forms_bootstrap',
 
-    #Voice apps
     'main',
 )
 
-#DEBUG TOOLBAR
-INTERNAL_IPS = ('127.0.0.1',)
 
-#dd/mm/yyyy and dd/mm/yy date & datetime input field settings
-DATE_INPUT_FORMATS = ('%d-%m-%Y', '%d/%m/%Y', '%d/%m/%y', '%d %b %Y',
-                      '%d %b, %Y', '%d %b %Y', '%d %b, %Y', '%d %B, %Y',
-                      '%d %B %Y')
-DATETIME_INPUT_FORMATS = ('%d/%m/%Y %H:%M:%S', '%d/%m/%Y %H:%M', '%d/%m/%Y',
-                          '%d/%m/%y %H:%M:%S', '%d/%m/%y %H:%M', '%d/%m/%y',
-                          '%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M', '%Y-%m-%d')
+ALLOWED_HOSTS = ['stripe-django-demo.herokuapp.com']
 
-
-DEBUG_TOOLBAR_CONFIG = {
-    'INTERCEPT_REDIRECTS': False
-}
 
 #LOGIN URL SETTINGS
 LOGIN_REDIRECT_URL = '/'
