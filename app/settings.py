@@ -16,6 +16,7 @@ SECRET_KEY = 'SUPER SECRET HASH VALUE'
 STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", '')
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", '')
 
+ALLOWED_HOSTS = ['stripe-django-demo.herokuapp.com']
 SSL_URLS = ['/signup', '/login', '/admin', '/subscribe-vanilla', '/subscribe-modal']
 
 # Crispy forms
