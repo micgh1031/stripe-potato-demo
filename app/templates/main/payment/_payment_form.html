@@ -1,0 +1,8 @@
+<form class="stripeForm" action="{% url 'subscribe_ajax' %}" method="POST">
+	{% csrf_token %}
+	<input name="stripe_token" type="hidden" />
+	<input name="plan_name" type="hidden" value="{{ plan.name }}">
+	<input name="plan_id" type="hidden" value="{{ plan.stripe_plan_id }}">
+	<input name="description" type="hidden" value="{{ plan.description }}">
+	<input name="price" type="hidden" value="{{ plan.price }}">
+</form>

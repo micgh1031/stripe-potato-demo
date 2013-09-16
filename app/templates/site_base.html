@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>{% block title %}Stripe Demo{% endblock %} | Potato London</title>
+		<meta name="description" content="{% block meta_description %}{{meta_description|safe|striptags}}{% endblock %}">
+		<meta name="keywords" content="{% block meta_keywords %}{{meta_keywords|safe|striptags}}{% endblock %}">
+		<meta name="author" content="Potato London">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="HandheldFriendly" content="True">
+		<meta name="MobileOptimized" content="980">
+		<meta http-equiv="cleartype" content="on">
+
+		<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootswatch/2.3.2/flatly/bootstrap.min.css">
+		<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css">
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/base.css">
+		{% block extra_css %}
+		{% endblock %}
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	</head>
+
+<body>
+	{% include 'main/_navbar.html' %}
+
+	<div id="wrap">
+		<div id="main">
+			{% block body %}
+			BODY GOES HERE
+			{% endblock body %}
+		</div>
+	</div>
+
+	{% include 'main/_footer.html' %}
+
+
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+
+{% block extra_js %}
+{# Need this bit for django-stripe-payments to work with built-in templates #}
+<script src="//checkout.stripe.com/v2/checkout.js"></script>
+<script src="{{ STATIC_URL }}js/eldarion-ajax.min.js"></script>
+<script>
+    $(function() {
+        $('body').on("click", '.change-card, .subscribe-form button[type=submit]', function(e) {
+          e.preventDefault();
+          var $form = $(this).closest("form"),
+              token = function(res) {
+                $form.find("input[name=stripe_token]").val(res.id);
+                $form.trigger("submit");
+              };
+
+          StripeCheckout.open({
+            key:         $form.data("stripe-key"),
+            name:        'Payment Method',
+            panelLabel:  'Add Payment Method',
+            token:       token
+          });
+
+          return false;
+        });
+    });
+</script>
+{% endblock %}
+
+</body>
+
+</html>

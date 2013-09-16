@@ -1,0 +1,14 @@
+DEBUG = True
+
+STRIPE_PUBLIC_KEY = ''
+STRIPE_SECRET_KEY = ''
+
+DEFAULT_FILE_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
+
+STATIC_URL = '/static/'
+
+ALLOWED_HOSTS = ['localhost']
+
+AWS_ACCESS_KEY_ID = 'KEY GOES HERE'
+AWS_SECRET_ACCESS_KEY = 'KEY GOES HERE'

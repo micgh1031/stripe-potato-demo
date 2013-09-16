@@ -1,0 +1,25 @@
+<div id="errorModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<div>
+			<h3 class="text-center">{% if header %}{{ header }}{%else %}An Error Occured{% endif %}{% if sub_header%}<br><small>{{ sub_header }}</small>{% endif %}</h3>
+		</div>
+	</div>
+	<div class="modal-body">
+		<br>
+		<div class="row-fluid">
+			<div class="text-center">
+				<p id="errorMsg" class="lead">{{ error_message }}</p>
+				<br>
+				<p>Need help? <a href="mailto:support@p.ota.to" target="_blank">Send us</a> an email.</p>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<div class="row-fluid text-center">
+			{% if retry_label %}
+			<a id='retryButton' class="btn btn-primary" href="#">{{ retry_label }}</a>
+			{% endif %}
+		</div>
+	</div>
+</div>

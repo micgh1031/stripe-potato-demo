@@ -1,0 +1,22 @@
+{% extends 'site_base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+<div class="container">
+	<div class="row">
+		<div class="span6 offset3">
+			<form method='POST' class='form-horizontal well' {%if form_url_name %}action='{% url form_url_name %}'{% elif form_url %}action='{{ form_url }}'{% endif %}>
+
+			{% if form %}
+				{% crispy form %}
+			{% else %}
+				No form found in context.
+			{% endif %}
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock body %}
+
+{% block extra_js %}
+{% endblock extra_js %}

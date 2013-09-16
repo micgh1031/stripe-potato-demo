@@ -1,0 +1,30 @@
+{% extends 'site_base.html' %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span10 offset1">
+			<div class="page-header">
+			{% block main_header %}
+				{% if main_header %}
+				<h1>{{ main_header }}</h1>
+				{% else %}
+				<h1>MAIN HEADER</h1>
+				{% endif %}
+			{% endblock main_header %}
+			</div>
+		</div>
+	</div>
+
+	{% include '_messages.html' %}
+
+	<div class="row-fluid">
+		<div class="span10 offset1">
+			<div class="row-fluid">
+				{% block main_content %}
+				{% endblock main_content %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock body %}

@@ -1,0 +1,46 @@
+{% extends "app_base.html" %}
+
+{% block main_header %}
+	<div class='page-header text-center'>
+		<h1>Stripe Payments<br>
+			<small>via <a href="https://github.com/eldarion/django-stripe-payments" target='_blank'>django-stripe-payments</a> and <a href="https://stripe.com/docs/checkout" target="_blank">checkout.js</a></small>
+		</h1>
+	</div>
+{% endblock main_header %}
+
+{% block main_content %}
+
+	<div class='offset2'>
+		<div class='row-fluid'>
+			{% with subscription=request.user.customer.current_subscription %}
+				{% if subscription %}
+				<div class='span10'>
+					{% include 'main/_subscription_summary.html' %}
+					<div class='well'>
+						<p class='lead'>Current Plan: {{ subscription.plan_display }}</p>
+						{% if subscription.status == 'active' %}
+						<p class='lead'>
+							Actions: <a href="" class='btn btn-primary'>Change Plan</a><a href="{% url 'cancel_subscription' %}" class='btn btn-danger'>Cancel Plan</a>
+						</p>
+						{% endif %}
+					</div>
+				</div>
+				{% endif %}
+			{% endwith %}
+		</div>
+		<div class="row-fluid">
+			<h2>Built-in templates - <a class="btn btn-primary btn-success" href="/payments/subscribe">Test Payment</a></h2>
+
+			</div>
+			<div class="row-fluid">
+				<h2>Vanilla Checkout.js - <a class="btn btn-primary btn-success" href="{% url 'subscribe_vanilla' %}">Test Payment</a></h2>
+			</div>
+			<div class="row-fluid">
+				<h2>Checkout.js with Bootstrap modals - <a class="btn btn-primary btn-success" href="{% url 'subscribe_modal' %}">Test Payment</a></h2>
+		</div>
+	</div>
+	<br>
+	<br>
+
+	{% include 'main/_cheatsheet.html' %}
+{% endblock main_content %}

@@ -1,0 +1,140 @@
+<div class="row-fluid">
+	<div class="span8 offset2">
+		<h3 class='text-center'>Card Cheat Sheet (<a href="https://stripe.com/docs/testing" target='_blank'>source</a>)</h3>
+	</div>
+
+	<div class="span5 offset1">
+		<h4 class='text-center'>Valid Cards</h4>
+
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Number</th>
+					<th>Type</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr>
+					<td>4242424242424242</td>
+					<td>Visa</td>
+				</tr>
+
+				<tr>
+					<td>4012888888881881</td>
+					<td>Visa</td>
+				</tr>
+
+				<tr>
+					<td>5555555555554444</td>
+					<td>MasterCard</td>
+				</tr>
+
+				<tr>
+					<td>5105105105105100</td>
+					<td>MasterCard</td>
+				</tr>
+
+				<tr>
+					<td>378282246310005</td>
+					<td>American Express</td>
+				</tr>
+
+				<tr>
+					<td>371449635398431</td>
+					<td>American Express</td>
+				</tr>
+
+				<tr>
+					<td>6011111111111117</td>
+					<td>Discover</td>
+				</tr>
+
+				<tr>
+					<td>6011000990139424</td>
+					<td>Discover</td>
+				</tr>
+
+				<tr>
+					<td>30569309025904</td>
+					<td>Diner's Club</td>
+				</tr>
+
+				<tr>
+					<td>38520000023237</td>
+					<td>Diner's Club</td>
+				</tr>
+
+				<tr>
+					<td>3530111333300000</td>
+					<td>JCB</td>
+				</tr>
+
+				<tr>
+					<td>3566002020360505</td>
+					<td>JCB</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+	<div class="span5">
+		<h4 class='text-center'>Invalid Cards</h4>
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Number</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr>
+					<td>4000000000000010</td>
+					<td>address_line1_check and address_zip_check will both fail</td>
+				</tr>
+
+				<tr>
+					<td>4000000000000028</td>
+					<td>address_line1_check will fail</td>
+				</tr>
+
+				<tr>
+					<td>4000000000000036</td>
+					<td>address_zip_check will fail</td>
+				</tr>
+
+				<tr>
+					<td>4000000000000101</td>
+					<td>cvc_check will fail if a CVC is entered</td>
+				</tr>
+
+				<tr>
+					<td>4000000000000341</td>
+					<td>Attaching this card to a Customer object will succeed, but attempts to charge the customer will fail</td>
+				</tr>
+
+				<tr>
+					<td>4000000000000002</td>
+					<td>Charges with this card will always be declined with a card_declined code</td>
+				</tr>
+
+				<tr>
+					<td>4000000000000127</td>
+					<td>Will be declined with an incorrect_cvc code</td>
+				</tr>
+
+				<tr>
+					<td>4000000000000069</td>
+					<td>Will be declined with an expired_card code</td>
+				</tr>
+
+				<tr>
+					<td>4000000000000119</td>
+					<td>Will be declined with a processing_error code</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,39 @@
+{% load i18n %}
+<div class="navbar">
+	<div class="navbar-inner">
+		<div class="container">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
+			<a class="brand"
+				href="{% url 'landing_page' %}"
+			>Stripe Demo</a>
+			<div class="nav-collapse" id="main-menu">
+				<ul class="nav" id="main-menu-left">
+				</ul>
+				<ul class='nav pull-right'>
+					<li><a href="https://p.ota.to" target='_blank'>Potato London</a></li>
+					{% if not user.is_authenticated %}
+					<li><a href="{% url "signup" %}">Register</a></li>
+					{% endif %}
+
+					<li class='divider-vertical'></li>
+					{% if not user.is_authenticated %}
+						<li><a href="{% url 'login' %}">{% trans "Sign In" %}</a></li>
+					{% else %}
+						<li class='dropdown'>
+							<a href="#" class='dropdown-toggle' data-toggle='dropdown'>{% trans "My Profile" %}<b class='caret'></b></a>
+							<ul class='dropdown-menu'>
+								<li class='divider'></li>
+								<li><a href="{% url 'logout' %}">{% trans "Log out" %}</a></li>
+							</ul>
+						</li>
+					{% endif %}
+					<li></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

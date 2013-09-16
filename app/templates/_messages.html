@@ -1,0 +1,23 @@
+{% if messages %}
+<div class='alerts row-fluid'>
+	<div class="span6 offset3">
+		{% for message in messages %}
+		<div class='row-fluid alert {% if message.tags %}alert-{{ message.tags }}{% endif %}'>
+			<a class='close'>x</a>
+			<p>{{ message }}</p>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% endif %}
+
+<script>
+	$('.alerts').on('click', '.close', function(event) {
+		event.preventDefault();
+
+		var $this = $(this),
+			$message = $this.closest('.alert');
+
+		$message.hide('slow', function(){ $message.remove(); });
+	});
+</script>

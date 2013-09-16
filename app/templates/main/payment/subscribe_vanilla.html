@@ -1,0 +1,61 @@
+{% extends "main/payment/payment_base.html" %}
+
+{% block extra_js %}
+<script src="//checkout.stripe.com/v2/checkout.js"></script>
+<script>
+	$(function() {
+
+		var homeURL = '{% url "home" %}'
+		var $activeButton = null;
+
+		$('.stripeForm').submit(function(event) {
+			event.preventDefault();
+			var values = $(this).serialize();
+
+			$.ajax({
+				url: $(this).attr('action'),
+				type: "post",
+				data: values,
+				success: function(data){
+					alert('Payment Succesful! You will be redirected to home page.');
+					setTimeout(function(){
+						window.location = homeURL;
+					}, 1000);
+				},
+				error:function(data){
+					var str = JSON.parse(data.responseText);
+					alert('Error: ' + str);
+				}
+			});
+		});
+
+		$('.subscribeBtn').click(function(){
+			$activeButton = $(this);
+			$stripeForm = $(this).prev('.stripeForm');
+
+			var token = function(res){
+				$stripeForm.find("input[name=stripe_token]").val(res.id);
+				$stripeForm.submit();
+			};
+
+			var amount = $stripeForm.find('input[name="price"]').val();
+			var plan_name = $stripeForm.find('input[name="plan_name"]').val();
+			var description = $stripeForm.find('input[name="description"]').val();
+
+			StripeCheckout.open({
+				key:         '{{ STRIPE_PUBLIC_KEY }}',
+				address:     false,
+				amount:      amount,
+				currency:    'gbp',
+				name:        plan_name,
+				description: description,
+				panelLabel:  'Give me potatoes',
+				token:       token
+			});
+
+		  return false;
+		});
+	});
+</script>
+
+{% endblock extra_js %}

@@ -1,0 +1,9 @@
+*.pyc
+*~
+*.swp
+collected_static/
+.DS_Store
+fqa.log
+npm-debug.log
+app/local_settings.py
+dump.rdb

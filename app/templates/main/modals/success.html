@@ -1,0 +1,18 @@
+<div id="successModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-header text-center">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>{% if header %}{{ header }}{% else %}Success!{% endif %}{% if sub_header%}<br><small>{{ sub_header }}</small>{% endif %}</h3>
+	</div>
+	<div class="modal-body">
+		<br>
+		<div class="row-fluid">
+			<div class="text-center">
+				<div class="modal-status">
+					<p class="lead">{{ success_message }}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+	</div>
+</div>

@@ -1,0 +1,83 @@
+{% extends "main/payment/payment_base.html" %}
+
+{% block extra_content %}
+	{% include "main/modals/progress.html" with header="Processing Payment" sub_header="This shouldn't take more than a minute..." %}
+
+	{% include "main/modals/success.html" with header="Payment Successful!" success_message="You are being redirected to homepage..." %}
+
+	{% include "main/modals/error.html" with sub_header="Your card was not charged." retry_label="Retry Payment" %}
+{% endblock extra_content %}
+
+{% block extra_js %}
+<script src="//checkout.stripe.com/v2/checkout.js"></script>
+<script>
+	$(function() {
+
+		var homeURL = '{% url "home" %}'
+		var $activeButton = null;
+		var $errorModal = $('#errorModal');
+		var $successModal = $('#successModal');
+		var $progressModal = $('#progressModal');
+
+		$('#retryButton').click(function(){
+			$errorModal.modal('hide');
+			if ($activeButton !== null){
+				$activeButton.trigger('click');
+			}
+		});
+
+		$('.stripeForm').submit(function(event) {
+			event.preventDefault();
+			var values = $(this).serialize();
+
+			$.ajax({
+				url: $(this).attr('action'),
+				type: "post",
+				data: values,
+				success: function(data){
+					$progressModal.modal('hide');
+					$successModal.modal('show');
+					setTimeout(function(){
+						window.location = homeURL;
+					}, 2000);
+				},
+				error:function(data){
+					var str = JSON.parse(data.responseText);
+					$progressModal.modal('hide');
+					$errorModal.modal('show');
+					$('#errorMsg').text(str);
+				}
+			});
+		});
+
+		$('.subscribeBtn').click(function(){
+			$activeButton = $(this);
+			$stripeForm = $(this).prev('.stripeForm');
+
+			var token = function(res){
+				$progressModal.modal('show');
+				$stripeForm.find("input[name=stripe_token]").val(res.id);
+				$stripeForm.submit();
+			};
+
+			var amount = $stripeForm.find('input[name="price"]').val();
+			var plan_name = $stripeForm.find('input[name="plan_name"]').val();
+			var description = $stripeForm.find('input[name="description"]').val();
+
+			StripeCheckout.open({
+				key:         '{{ STRIPE_PUBLIC_KEY }}',
+				address:     false,
+				amount:      amount,
+				currency:    'gbp',
+				name:        plan_name,
+				description: description,
+				panelLabel:  'Take my money',
+				token:       token
+			});
+
+		  return false;
+		});
+	});
+</script>
+
+{% endblock extra_js %}
