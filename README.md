@@ -55,8 +55,9 @@ npm install -g localtunnel
 3- Run localtunnel
 ```sh
 lt --port 8000
+your url is: http://<random_id>.localtunnel.me
 ```
-4- Input your localtunnel address to Stripe [webhook dashboard], in test mode.
+4- Put "http://<random_id>.localtunnel.me/payments/webhook/" to Stripe [webhook dashboard], in test mode.
 
 
 [postgres]: http://www.postgresql.org/
