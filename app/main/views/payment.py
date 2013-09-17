@@ -150,6 +150,17 @@ class CancelSubscriptionView(generic.TemplateView):
     template_name = 'main/payment/cancel.html'
 
 
+class ChangeSubscriptionView(generic.TemplateView):
+    """"""
+    template_name = 'main/payment/change.html'
+
+    def get_context_data(self, **kwargs):
+        """"""
+        return {
+            'plans': [settings.PAYMENTS_PLANS[k] for k in sorted(settings.PAYMENTS_PLANS.keys())]
+        }
+
+
 # class SubscriptionDetailMixin(object):
 #     """"""
 #     context_object_name = 'subscription'
@@ -249,6 +260,6 @@ class CancelSubscriptionView(generic.TemplateView):
 subscribe_vanilla = VanillaSubscribeView.as_view()
 subscribe_modal = ModalSubscribeView.as_view()
 # status = SubscriptionStatusView.as_view()
-# change = ChangeSubscriptionView.as_view()
+change = ChangeSubscriptionView.as_view()
 # change_card = ChangeCardView.as_view()
 cancel = CancelSubscriptionView.as_view()

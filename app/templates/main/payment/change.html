@@ -1,0 +1,129 @@
+{% extends "app_base.html" %}
+
+{% block main_content %}
+	<p class="lead">You can change your current plan here.</p>
+
+	<table class='table table-bordered table-striped table-hover'>
+		<thead>
+			<tr>
+				<th>Plan</th>
+				<th>Billing</th>
+				<th>Amount</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for plan in plans %}
+			<tr>
+				<td>{{ plan.name }}</td>
+				<td> {% if plan.interval_count %}{{ plan.interval_count}}{% else %}1{% endif %} {{ plan.interval }}</td>
+
+				<td>£
+					{% if plan.price < 10000 %}
+					{{ plan.price|slugify|slice:":2" }}
+					{% else %}
+					{{ plan.price|slugify|slice:":3" }}
+					{% endif %}
+				</td>
+				<td>
+					{% if request.user.customer.current_subscription.plan == plan.stripe_plan_id %}
+					<b>Current Plan</b>
+
+					{% else %}
+					<a class="planBtn btn btn-primary" data-plan-name="{{ plan.name }}" data-plan-id="{{ plan.stripe_plan_id }}" href="#">Change</a>
+					{% endif %}
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<div id="confirmModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-header text-center">
+			<h3>Change Plan</h3>
+		</div>
+		<div class="modal-body">
+			<br>
+			<div class="row-fluid">
+				<div class="span10 offset1 text-center">
+					<p>Do you really want to switch to <b><span id="planName"></span></b> plan?</p>
+					<p>Your card will be charged for the new plan and your previous subscription will be cancelled.</p>
+				</div>
+				<form id="changePlanForm" action="{% url 'change_plan_ajax' %}" method="POST">
+					{% csrf_token %}
+					<input id="id_plan_id" name="plan_id" type="hidden" value="">
+				</form>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class='text-center'>
+				<a id="confirm-yes" class="btn btn-primary" href="#">Yes</a>
+				<a id="confirm-no" class="btn btn-default" href="#">No</a>
+			</div>
+		</div>
+	</div>
+
+	{% include "main/modals/progress.html" with header="Changing Subscription Plan" sub_header="Waiting for response from payment gateway" %}
+
+	{% include "main/modals/error.html" with sub_header="Please contact our support team." %}
+
+	{% include "main/modals/success.html" with success_message="Your subscription was changed successfully."%}
+
+{% endblock main_content %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function(){
+
+	var redirectURL = '{% url "home" %}'
+	$form = $('#changePlanForm');
+
+	$confirmModal = $('#confirmModal');
+	$progressModal = $('#progressModal');
+	$errorModal = $('#errorModal');
+	$successModal = $('#successModal');
+
+	$('.planBtn').click(function(){
+		var planName = $(this).attr('data-plan-name');
+		var planId = $(this).attr('data-plan-id');
+
+		$('#planName').text(planName);
+		$('#id_plan_id').val(planId);
+		$confirmModal.modal('show');
+	});
+
+	$('#cancel').click(function(){
+		$confirmModal.modal('show');
+	});
+
+	$('#confirm-no').click(function(){
+		$confirmModal.modal('hide');
+		$('#id_plan_id').val("");
+	});
+
+	$('#confirm-yes').click(function(){
+		$confirmModal.modal('hide');
+		$progressModal.modal('show');
+
+		$.ajax({
+			type: "POST",
+			url: $form.attr('action'),
+			data: $form.serialize(),
+			success: function(data){
+				$progressModal.modal('hide');
+				$successModal.modal('show');
+				setTimeout(function(){
+					window.location = redirectURL;
+				}, 2000);
+			},
+			error:function(data){
+				var str = JSON.parse(data.responseText);
+				$progressModal.modal('hide');
+				$errorModal.modal('show');
+				$('#errorMsg').text(str);
+			}
+		});
+	});
+});
+</script>
+{% endblock extra_js %}
