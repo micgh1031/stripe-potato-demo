@@ -145,3 +145,15 @@ body {
     width: 100%;
     height: 100%;
 }
+
+.form-horizontal {
+	position: relative;
+	margin: 40px 0 0 0;
+	padding-top: 60px;
+}
+
+.form-horizontal .logo {
+	left: 50%;
+	margin-left: -50px;
+	top: -40px;
+}
