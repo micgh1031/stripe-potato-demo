@@ -3,6 +3,9 @@ import logging
 from django.conf import settings
 from django.shortcuts import redirect
 
+from django.http import HttpResponse
+from django.utils import simplejson
+
 from django.core.exceptions import ObjectDoesNotExist
 
 from django.views.decorators.http import require_POST
@@ -15,10 +18,6 @@ from django.views import generic
 import stripe
 
 from payments.models import Customer
-
-
-from django.http import HttpResponse
-from django.utils import simplejson
 
 
 class JSONResponse(HttpResponse):
@@ -83,7 +82,7 @@ def change_plan_ajax(request):
 @wrap_stripe_error
 def change_card_ajax(request):
     """"""
-    if request.POST.get("stripe_token"):
+    if request.POST.get("stripe_token", None):
         customer = request.user.customer
         send_invoice = customer.card_fingerprint == ""
         customer.update_card(
@@ -110,7 +109,6 @@ def cancel_ajax(request):
 
 class BaseStripeTemplateView(generic.TemplateView):
     """"""
-
     def get_context_data(self, **kwargs):
         """"""
         ctx = super(BaseStripeTemplateView, self).get_context_data(**kwargs)
@@ -161,15 +159,9 @@ class ChangeSubscriptionView(generic.TemplateView):
         }
 
 
-class ChangeCardView(generic.TemplateView):
+class ChangeCardView(BaseStripeTemplateView):
     """"""
     template_name = "main/payment/card.html"
-
-    def get_context_data(self, **kwargs):
-        """"""
-        return {
-            "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY,
-        }
 
 
 subscribe_vanilla = VanillaSubscribeView.as_view()

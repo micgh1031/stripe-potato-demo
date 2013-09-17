@@ -6,7 +6,8 @@ import re
 SSL = 'SSL'
 
 
-class SSLRedirect:
+class SSLRedirect(object):
+    """Rediction middleware that's used for information sensitive URLs"""
     urls = tuple([re.compile(url) for url in settings.SSL_URLS])
 
     def process_request(self, request):

@@ -10,7 +10,7 @@ from crispy_forms.helper import FormHelper
 
 
 class CrispyFormMixin(object):
-
+    """Mixin for rendering bootstrap forms"""
     def init_helper(self, form_tag=False):
         self.helper = FormHelper()
         self.helper.layout = self.get_layout()
@@ -22,7 +22,6 @@ class CrispyFormMixin(object):
 
 class AuthenticationForm(auth_forms.AuthenticationForm, CrispyFormMixin):
     """"""
-
     redirect_url = forms.CharField(widget=forms.HiddenInput())
 
     def __init__(self, *args, **kwargs):
