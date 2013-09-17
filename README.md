@@ -21,7 +21,14 @@ python bootstrap.py
 ```sh
 fab deps
 ```
-6- Put your Stripe and AWS keys in local_settings.py
+6- syncdb & migrate
+```sh
+python app/manage.py syncdb
+```
+```sh
+python app/manage.py migrate
+```
+6- Create local_settings.py and put your Stripe and AWS keys in there
 
 7- Create Stripe plans
 ```sh
