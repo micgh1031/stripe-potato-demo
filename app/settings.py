@@ -29,7 +29,7 @@ PAYMENTS_PLANS = {
         "stripe_plan_id": "potato_normal",
         "name": "Monthly Potato Delivery",
         "description": "Monthly potato delivery to your door.",
-        "price": 1500,
+        "price": 15,
         "currency": "gbp",
         "interval": "month"
     },
@@ -38,7 +38,7 @@ PAYMENTS_PLANS = {
         "stripe_plan_id": "potato_premier",
         "name": "Monthly Premier Potato Delivery",
         "description": "Monthly PREMIER potato delivery to your door.",
-        "price": 3000,
+        "price": 30,
         "currency": "gbp",
         "interval": "month",
     },

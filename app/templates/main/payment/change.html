@@ -22,13 +22,8 @@
 				<td>{{ plan.name }}</td>
 				<td> {% if plan.interval_count %}{{ plan.interval_count}}{% else %}1{% endif %} {{ plan.interval }}</td>
 
-				<td>£
-					{% if plan.price < 10000 %}
-					{{ plan.price|slugify|slice:":2" }}
-					{% else %}
-					{{ plan.price|slugify|slice:":3" }}
-					{% endif %}
-				</td>
+				<td>£ {{ plan.price }}</td>
+
 				<td>
 					{% if request.user.customer.current_subscription.plan == plan.stripe_plan_id %}
 					<b>Current Plan</b>
