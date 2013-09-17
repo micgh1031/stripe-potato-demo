@@ -43,6 +43,22 @@ or
 python app/manage.py runserver
 ```
 
+Testing Webhooks
+-------------------------
+
+1- install [node.js]
+
+2- install [localtunnel]
+```sh
+npm install -g localtunnel
+```
+3- Run localtunnel
+```sh
+lt --port 8000
+```
+4- Input your localtunnel address to Stripe [webhook dashboard], in test mode.
+
+
 [postgres]: http://www.postgresql.org/
 [for Mac]: http://postgresapp.com/
 [heroku]: http://heroku.com  
@@ -50,3 +66,6 @@ python app/manage.py runserver
 [virtualenv]: http://virtualenvwrapper.readthedocs.org/en/latest/
 [django-stripe-payments]: https://github.com/eldarion/django-stripe-payments
 [checkout.js]: https://stripe.com/docs/checkout
+[node.js]: http://nodejs.org/download/
+[localtunnel]: http://localtunnel.me/
+[webhook dashboard]: https://manage.stripe.com/account/webhooks
