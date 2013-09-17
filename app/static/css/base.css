@@ -2,61 +2,6 @@ ul {
     list-style: none;
 }
 
-.home-exercise-actions li {
-    margin-top: 2em;
-}
-
-.centered-content {
-    text-align: center;
-}
-
-.text-line {
-    height: 3em;
-}
-
-.btn-row {
-    padding-top: 1em;
-    padding-bottom: 1em;
-}
-
-.score-bar {
-    width: 40%;
-    margin: auto;
-}
-
-#voiceInput{
-    width: 40px;
-    height:50px;
-    font-size: 50px;
-    border: 0;
-    background: #d41e24;
-    box-shadow: 0px 2px 7px #999;
-    cursor: pointer;
-}
-
-#voiceInput:active{
-    box-shadow: inset 0 2px 5px #555;
-}
-
-.progress .noanimate {
-    -webkit-transition: none;
-    -moz-transition: none;
-    -ms-transition: none;
-    -o-transition: none;
-    transition: none;
-}
-
-.question {
-    margin-bottom: 20px;
-}
-
-.wide-input { width: 300px }
-
-.asteriskField {
-    color: red;
-    margin-left: 5px;
-}
-
 html, body {
   height: 100%;
 }
@@ -87,23 +32,6 @@ body {
 	margin: 0 0 0 90px;
 }
 
-#main {
-    overflow:auto;
-    padding-bottom:150px; /* this needs to be bigger than footer height*/
-}
-
-.footer {
-  position: relative;
-  margin-top: -150px; /* negative value of footer height */
-  height: 150px;
-  clear: both;
-  padding-top: 20px;
-}
-
-.footer .links a {
-    margin-right: 10px;
-}
-
 .subscription-price {
     font-size: 50px;
     line-height: 60px;
@@ -112,39 +40,6 @@ body {
     top: 5px;
 }
 
-.lead-large {
-    font-size: 24px;
-}
-
-.show-grid [class*="span"]{
-    background-color: #ddd;
-}
-
-.video-modal {
-    max-height: 80%;
-    overflow-y: auto;
-}
-
-.video-modal .modal-body {
-    max-height: none;
-    text-align: center;
-}
-
-.video-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    padding-top: 30px; height: 0; overflow: hidden;
-}
-
-.video-container iframe,
-.video-container object,
-.video-container embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
 
 .form-horizontal {
 	position: relative;

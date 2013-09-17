@@ -1,6 +1,6 @@
 import logging
 
-from django.shortcuts import redirect
+from django.core.urlresolvers import reverse
 
 from django.views import generic
 
@@ -12,14 +12,14 @@ class HomePageView(generic.TemplateView):
 home = HomePageView.as_view()
 
 
-class LandingPageView(generic.TemplateView):
+class LandingPageView(generic.RedirectView):
     """"""
-    template_name = 'main/landing.html'
 
-    def get(self, request, *args, **kwargs):
+    def get_redirect_url(self, **kwargs):
         """"""
+        request = self.request
         if request.user and request.user.is_authenticated():
-            return redirect('home')
-        return super(LandingPageView, self).get(request, *args, **kwargs)
+            return reverse('home')
+        return reverse('signup')
 
 landing = LandingPageView.as_view()

@@ -24,6 +24,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap'
 # Django Stripe Payments settings
 PAYMENTS_INVOICE_FROM_EMAIL = 'billing@p.ota.to'
 
+
 PAYMENTS_PLANS = {
     "potato_normal": {
         "stripe_plan_id": "potato_normal",

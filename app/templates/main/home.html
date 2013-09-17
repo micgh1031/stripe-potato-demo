@@ -15,7 +15,7 @@
 			{% with subscription=request.user.customer.current_subscription %}
 				{% if subscription %}
 				<div class='span10'>
-					{% include 'main/_subscription_summary.html' %}
+					{% include 'payments/_subscription_status.html' %}
 					<div class='well'>
 						<p class='lead'>Current Plan: {{ subscription.plan_display }}</p>
 						{% if subscription.status == 'active' %}

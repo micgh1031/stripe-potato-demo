@@ -103,7 +103,7 @@ def change_card_ajax(request):
 @wrap_stripe_error
 def cancel_ajax(request):
     """"""
-    request.user.customer.cancel()
+    request.user.customer.cancel(at_period_end=False)
     messages.info(request, "You have unsubscribed successfully.")
     return JSONResponse({'message': 'Cancellation successful.'})
 

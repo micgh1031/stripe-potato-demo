@@ -45,7 +45,7 @@
 			StripeCheckout.open({
 				key:         '{{ STRIPE_PUBLIC_KEY }}',
 				address:     false,
-				amount:      amount,
+				amount:      amount * 100,
 				currency:    'gbp',
 				name:        plan_name,
 				description: description,
