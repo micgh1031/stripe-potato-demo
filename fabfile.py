@@ -73,7 +73,7 @@ def install_deployable_dependencies():
         local(cmd)
 
 @task
-def run_devserver():
+def runserver():
     """"""
     python = get_python()
     manage_py = os.path.join(APP_DIR, 'manage.py')
