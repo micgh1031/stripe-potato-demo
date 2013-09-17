@@ -5,7 +5,7 @@ Example [heroku] app that shows how [django-stripe-payments] and [checkout.js] w
 
 Development:
 ---------------
-1- Install [postgres] ([for Mac])
+1- Install [postgres], [for Mac]
 
 (You can use sqlite, but using different databases on production and development is not a good idea)
 
