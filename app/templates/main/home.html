@@ -20,7 +20,10 @@
 						<p class='lead'>Current Plan: {{ subscription.plan_display }}</p>
 						{% if subscription.status == 'active' %}
 						<p class='lead'>
-							Actions: <a href="{% url 'change_subscription' %}" class='btn btn-primary'>Change Plan</a><a href="{% url 'cancel_subscription' %}" class='btn btn-danger'>Cancel Plan</a>
+							Actions:
+							<a href="{% url 'change_subscription' %}" class='btn btn-primary'>Change Plan</a>
+							<a href="{% url 'change_card' %}" class='btn btn-warning'>Change Card</a>
+							<a href="{% url 'cancel_subscription' %}" class='btn btn-danger'>Cancel Plan</a>
 						</p>
 						{% endif %}
 					</div>

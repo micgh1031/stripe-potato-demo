@@ -1,17 +1,19 @@
 {% extends "app_base.html" %}
 
 {% block main_header %}
-	<div class='page-header'>
+	<div class='page-header text-center'>
 		<h1>Cancel Subscription</h1>
 	</div>
 {% endblock main_header %}
 {% block main_content %}
 
-	<p class='lead'>If you want to cancel your subscription, click on the button below.</p>
-	<br>
-	<br>
+	<div class='text-center'>
+		<p class='lead'>If you want to cancel your subscription, click on the button below.</p>
+		<br>
+		<br>
 
-	<a id='cancel' class="btn btn-danger"href="#">CANCEL SUBSCRIPTION</a>
+		<a id='cancel' class="btn btn-danger btn-large"href="#">CANCEL SUBSCRIPTION</a>
+	</div>
 
 	<div id="confirmModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-header text-center">

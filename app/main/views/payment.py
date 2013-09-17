@@ -161,105 +161,19 @@ class ChangeSubscriptionView(generic.TemplateView):
         }
 
 
-# class SubscriptionDetailMixin(object):
-#     """"""
-#     context_object_name = 'subscription'
+class ChangeCardView(generic.TemplateView):
+    """"""
+    template_name = "main/payment/card.html"
 
-#     def get_object(self, queryset=None):
-#         """"""
-#         return self.get_subscription()
-
-#     def get_extra_context_data(self):
-#         """"""
-#         sub = self.get_subscription()
-#         if sub:
-#             payment_days = (timezone.now() - sub.start_time).days
-#             return dict(
-#                 can_refund=payment_days <= settings.PAYMENT_REFUND_DAYS,
-#                 days_left=(sub.end_time - timezone.now()).days,
-#                 payment_days=payment_days,
-#             )
-#         return {}
-
-#     def get_tabbed_navigation(self):
-#         """"""
-#         TM = TabbedMenuItem
-
-#         sub = self.get_subscription()
-
-#         if not sub or sub.is_trial or sub.cancelled_time:
-#             items = [
-#                 TM('Subscription Status', url_name='subscription_status'),
-#             ]
-#         else:
-#             items = [
-#                 TM('Subscription Status', url_name='subscription_status'),
-#                 TM('Change Card', url_name='change_card'),
-#                 TM('Change Subscription', url_name='change_subscription'),
-#                 TM('Cancel Subscription', url_name='cancel_subscription'),
-#             ]
-
-#         return TM('root', menu_items=items)
-
-
-# class SubscriptionStatusView(SubscriptionDetailMixin, base.BaseDetailView):
-#     """Displays the details of current subscription, with options
-#     for changing plans or cancelling current subscription"""
-
-#     main_header = "Subscription Status"
-#     template_name = "subscriptions/status.html"
-
-
-# class BaseSubscriptionUpdateView(base.BaseUpdateView):
-#     """"""
-#     def get(self, request, *args, **kwargs):
-#         """"""
-#         sub = self.get_subscription()
-#         if sub and sub.is_trial:
-#             messages.warning(request, 'You are not on a paid subscription plan.')
-#             return redirect('subscription_status')
-#         return super(BaseSubscriptionUpdateView, self).get(request, *args, **kwargs)
-
-
-# class ChangeSubscriptionView(SubscriptionDetailMixin, BaseSubscriptionUpdateView):
-#     """"""
-#     main_header = "Change Subscription"
-#     template_name = 'subscriptions/change.html'
-
-#     def get_extra_context_data(self):
-#         """"""
-#         return get_plan_ctx()
-
-
-# class ChangeCardView(SubscriptionDetailMixin, base.BaseTemplateView):
-#     """"""
-#     main_header = "Change Card"
-#     template_name = "subscriptions/change_card.html"
-
-#     def get(self, request, *args, **kwargs):
-#         """"""
-#         sub = self.get_subscription()
-#         if sub and sub.is_trial:
-#             messages.warning(request, 'You are not on a paid subscription plan.')
-#             return redirect('subscription_status')
-#         return super(ChangeCardView, self).get(request, *args, **kwargs)
-
-#     def get_extra_context_data(self):
-#         """"""
-#         return {
-#             "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY,
-#         }
-
-
-# class CancelSubscriptionView(SubscriptionDetailMixin, BaseSubscriptionUpdateView):
-#     """Confirmation view for cancelling current subscription"""
-#     main_header = "Cancel Subscription"
-#     template_name = 'subscriptions/cancel.html'
+    def get_context_data(self, **kwargs):
+        """"""
+        return {
+            "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY,
+        }
 
 
 subscribe_vanilla = VanillaSubscribeView.as_view()
 subscribe_modal = ModalSubscribeView.as_view()
-# status = SubscriptionStatusView.as_view()
 change = ChangeSubscriptionView.as_view()
-# change_card = ChangeCardView.as_view()
+change_card = ChangeCardView.as_view()
 cancel = CancelSubscriptionView.as_view()

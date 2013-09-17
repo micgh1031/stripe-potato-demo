@@ -1,0 +1,96 @@
+{% extends "app_base.html" %}
+
+{% block main_header %}
+	<h1 class='text-center'>Change Card</h1>
+{% endblock main_header %}
+
+{% block main_content %}
+	<div class='span6 offset3 text-center'>
+		<p class="lead">You can change your payment details here.</p>
+		<p class="lead">Current card is a <strong>{{ request.user.customer.card_kind }}</strong> ending in the digits <strong>{{ request.user.customer.card_last_4 }}</strong>.</p>
+
+		<br>
+		<a id='changeCardButton' class="btn btn-warning btn-large"href="#">Change Card</a>
+
+		<br>
+		<br>
+		<br>
+		{% include "main/modals/progress.html" with header="Changing card information" sub_header="Waiting for response from payment gateway" %}
+
+		{% include "main/modals/error.html" with sub_header="Feel free to contact our support." retry_label="Retry Update" %}
+
+		{% include "main/modals/success.html" with success_message="Payment details were changed successfully."%}
+
+		<form id="stripeForm" action="{% url 'change_card_ajax' %}" method="POST" style='display:none;'>
+			{% csrf_token %}
+			<input name="stripe_token" type="hidden" />
+		</form>
+	</div>
+
+	{% include 'main/_cheatsheet.html' %}
+{% endblock main_content %}
+
+{% block extra_js %}
+<script src="//checkout.stripe.com/v2/checkout.js"></script>
+<script type="text/javascript">
+$(function(){
+
+	var redirectURL = '{% url "change_card" %}'
+
+	$stripeForm = $('#stripeForm');
+	$changeCardButton = $('#changeCardButton')
+
+	$progressModal = $('#progressModal');
+	$errorModal = $('#errorModal');
+	$successModal = $('#successModal');
+
+	$('#retryButton').click(function(){
+		$errorModal.modal('hide');
+		$changeCardButton.trigger('click');
+	});
+
+	$stripeForm.submit(function(event) {
+		event.preventDefault();
+		var values = $(this).serialize();
+
+		$.ajax({
+			url: $(this).attr('action'),
+			type: "post",
+			data: values,
+			success: function(data){
+				$progressModal.modal('hide');
+				$successModal.modal('show');
+				setTimeout(function(){
+					window.location = redirectURL;
+				}, 3000);
+			},
+			error:function(data){
+				var str = JSON.parse(data.responseText);
+				$progressModal.modal('hide');
+				$errorModal.modal('show');
+				$('#errorMsg').text(str);
+			}
+		});
+	});
+
+	$changeCardButton.click(function(){
+
+		var token = function(res){
+			$progressModal.modal('show');
+			$stripeForm.find("input[name=stripe_token]").val(res.id);
+			$stripeForm.submit();
+		};
+
+		StripeCheckout.open({
+			key:         '{{ STRIPE_PUBLIC_KEY }}',
+			name:        "Payment Method",
+			panelLabel:  'Change Card Information',
+			token:       token
+		});
+
+	  return false;
+	});
+
+});
+</script>
+{% endblock extra_js %}
