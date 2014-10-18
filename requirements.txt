@@ -16,4 +16,4 @@ dj-database-url
 
 #payment
 django-forms-bootstrap
-django-stripe-payments==2.0b27
+django-stripe-payments==2.0b34
